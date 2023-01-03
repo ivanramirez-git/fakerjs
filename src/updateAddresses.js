@@ -20,15 +20,16 @@ client.connect(err => {
     }
     console.log("Conexión establecida con éxito.");
     const db = client.db(dbName);
-    // // Agregar el campo logo: https://domiciliarios.s3.us-east-2.amazonaws.com/images/1672433220672-s7kzypn7yha.png a todos los documentos de la colección Company
-    // db.collection('Company').updateMany({}, { $set: { logo: 'https://domiciliarios.s3.us-east-2.amazonaws.com/images/1672433220672-s7kzypn7yha.png' } }, (err, result) => {
-    //     if (err) {
-    //         console.error(err);
-    //         process.exit(1);
-    //     }
-    //     console.log("Actualización exitosa.");
-    //     client.close();
-    // });
-
-    client.close();
+    const collection = db.collection("Booking");
+    // Cambiar el key addresId por addressId sin modificar los datos de booking
+    collection.updateMany(
+        {},
+        { $rename: { "addresId": "addressId" } }
+    )
+        .then(result => {
+            console.log(`Se han actualizado ${result.modifiedCount} documentos.`);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 });

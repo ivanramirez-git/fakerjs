@@ -111,19 +111,19 @@ function createBooking() {
         state: faker.random.arrayElement(['created', 'confirmed', 'ended']),
         addresId: new ObjectID('63aa2ca266b5a9760f666b18'),
         serviceId: new ObjectID('63aa2e1f6db6d149f3908882'),
-        companyId: new ObjectID('63a5f62de3c4be1dce58c707'),
+        companyId: new ObjectID('63a5ffaeeb6af5a786ed6a20'),
         customerId: new ObjectID(faker.random.arrayElement(cliente)),
         domiciliaryId: new ObjectID(faker.random.arrayElement(transportador)),
         schedulerId: new ObjectID(faker.random.arrayElement(scheduler)),
         locationId: new ObjectID('63a5cdf23391d3ebca1b2409'),
         content: faker.commerce.productName(),
         unit: faker.random.arrayElement(['kg', 'lb', 'g', 'oz', 'l', 'ml', 'gal', 'qt']),
-        weight: faker.random.number(100),
-        height: faker.random.number(100),
-        broad: faker.random.number(100),
-        length: faker.random.number(100),
-        insuredValue: faker.random.number(1000000),
-        declaredValue: faker.random.number(10000000),
+        weight: faker.datatype.number(100),
+        height: faker.datatype.number(100),
+        broad: faker.datatype.number(100),
+        length: faker.datatype.number(100),
+        insuredValue: faker.datatype.number(1000000),
+        declaredValue: faker.datatype.number(10000000),
         createdAt: new Date(),
         updatedAt: new Date()
     };
@@ -135,7 +135,7 @@ async function createBookings() {
     const db = client.db(dbName);
     const collection = db.collection('Booking');
     const bookings = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 13; i++) {
         bookings.push(createBooking());
     }
     await collection.insertMany(bookings);
